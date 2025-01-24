@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { ElementType, ReactNode, useRef } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -7,32 +7,36 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { useRef } from "react";
 import { cn } from "@/utils/cn";
 
-export function Button({
+// Define prop types for Button
+type ButtonProps<C extends ElementType> = {
+  borderRadius?: string;
+  children: ReactNode;
+  as?: C; // Generic type for the 'as' prop to allow any component
+  containerClassName?: string;
+  borderClassName?: string;
+  duration?: number;
+  className?: string;
+  // Spread additional props for the Component
+  [key: string]: any;
+};
+
+// Define the Button component as a generic component
+export function Button<C extends ElementType = "button">({
   borderRadius = "1.75rem",
   children,
-  as: Component = "button",
+  as: Component = "button", // Default component is 'button'
   containerClassName,
   borderClassName,
   duration,
   className,
   ...otherProps
-}: {
-  borderRadius?: string;
-  children: React.ReactNode;
-  as?: any;
-  containerClassName?: string;
-  borderClassName?: string;
-  duration?: number;
-  className?: string;
-  [key: string]: any;
-}) {
+}: ButtonProps<C>) {
   return (
     <Component
       className={cn(
-        "bg-transparent relative text-xl   p-[1px] overflow-hidden md:col-span-2",
+        "bg-transparent relative text-xl p-[1px] overflow-hidden md:col-span-2",
         containerClassName
       )}
       style={{
@@ -69,19 +73,22 @@ export function Button({
   );
 }
 
+// Define props for the MovingBorder component
+type MovingBorderProps = {
+  children: ReactNode;
+  duration?: number;
+  rx?: string;
+  ry?: string;
+  [key: string]: any;
+};
+
 export const MovingBorder = ({
   children,
   duration = 2000,
   rx,
   ry,
   ...otherProps
-}: {
-  children: React.ReactNode;
-  duration?: number;
-  rx?: string;
-  ry?: string;
-  [key: string]: any;
-}) => {
+}: MovingBorderProps) => {
   const pathRef = useRef<SVGPathElement | null>(null);
   const progress = useMotionValue<number>(0);
 

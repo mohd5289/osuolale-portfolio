@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/utils/cn";
 import { BackgroundGradientAnimation } from "./BackgroundGradientAnimation";
-import { Globe } from "./Globe";
+
 import { GlobeDemo } from "./GridGlobe";
 import Lottie from "lottie-react";
 import { useState } from "react";
