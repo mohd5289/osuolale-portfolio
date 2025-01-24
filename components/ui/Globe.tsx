@@ -179,12 +179,18 @@ export function Globe({ globeConfig, data }: WorldProps) {
         const rgb = hexToRgb(color); // Convert color to RGB
         return `rgba(${rgb?.r}, ${rgb?.g}, ${rgb?.b}, ${1 - t})`; // Return color based on 't'
       })
-      .arcAltitude((_: { arcAlt: number }) => _.arcAlt * 1)
+      .arcAltitude((obj: object) => {
+        const { arcAlt } = obj as { arcAlt: number }; // Type assertion
+        return arcAlt ?? null;
+      })
       .arcStroke(() => {
         return [0.32, 0.28, 0.3][Math.round(Math.random() * 2)];
       })
       .arcDashLength(defaultProps.arcLength)
-      .arcDashInitialGap((_: { order: number }) => _.order * 1)
+      .arcDashInitialGap((obj: object) => {
+        const { order } = obj as { order: number }; // Type assertion
+        return order * 1;
+      })
       .arcDashGap(15)
       .arcDashAnimateTime(() => defaultProps.arcTime);
 
@@ -197,9 +203,10 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .ringsData([])
-      .ringColor(
-        (e: { color: (t: number) => string }) => (t: number) => e.color(t)
-      )
+      .ringColor((obj: object) => {
+        const { color } = obj as { color: (t: number) => string }; // Type assertion
+        return (t: number) => color(t); // Return the color function
+      })
       .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod(
