@@ -248,12 +248,26 @@ const ShaderMaterial = ({
           preparedUniforms[uniformName] = { value: uniform.value, type: "1fv" };
           break;
         case "uniform3fv":
-          preparedUniforms[uniformName] = {
-            value: uniform.value.map((v: number[]) =>
-              new THREE.Vector3().fromArray(v)
-            ),
-            type: "3fv",
-          };
+          if (Array.isArray(uniform.value) && Array.isArray(uniform.value[0])) {
+            // uniform.value is a number[][]
+            preparedUniforms[uniformName] = {
+              value: (uniform.value as number[][]).map((v: number[]) =>
+                new THREE.Vector3().fromArray(v)
+              ),
+              type: "3fv",
+            };
+          } else if (Array.isArray(uniform.value)) {
+            // uniform.value is a flat number[]
+            preparedUniforms[uniformName] = {
+              value: [new THREE.Vector3().fromArray(uniform.value as number[])],
+              type: "3fv",
+            };
+          } else {
+            console.error(
+              `Invalid value for uniform '${uniformName}': Expected a number[][] or number[], but got`,
+              uniform.value
+            );
+          }
           break;
         case "uniform2f":
           if (Array.isArray(uniform.value)) {
