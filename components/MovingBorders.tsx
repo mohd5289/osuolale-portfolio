@@ -10,7 +10,7 @@ import {
 import { cn } from "@/utils/cn";
 
 // Define prop types for Button
-type ButtonProps<C extends ElementType> = {
+type ButtonProps<C extends ElementType = "button"> = {
   borderRadius?: string;
   children: ReactNode;
   as?: C; // Generic type for the 'as' prop to allow any component
@@ -18,7 +18,7 @@ type ButtonProps<C extends ElementType> = {
   borderClassName?: string;
   duration?: number;
   className?: string;
-  // Spread additional props for the Component
+  // Allow additional props based on the type of component used
   [key: string]: React.HTMLProps<C>[keyof React.HTMLProps<C>];
 };
 
@@ -74,12 +74,13 @@ export function Button<C extends ElementType = "button">({
 }
 
 // Define props for the MovingBorder component
-type MovingBorderProps = {
+import { SVGProps } from "react";
+
+type MovingBorderProps = SVGProps<SVGSVGElement> & {
   children: ReactNode;
   duration?: number;
   rx?: string;
   ry?: string;
-  [key: string]: string;
 };
 
 export const MovingBorder = ({
