@@ -251,15 +251,14 @@ const ShaderMaterial = ({
           if (Array.isArray(uniform.value) && Array.isArray(uniform.value[0])) {
             // uniform.value is a number[][]
             preparedUniforms[uniformName] = {
-              value: (uniform.value as number[][]).map((v: number[]) =>
-                new THREE.Vector3().fromArray(v)
-              ),
+              value: (uniform.value as number[][]).flat(),
               type: "3fv",
             };
           } else if (Array.isArray(uniform.value)) {
             // uniform.value is a flat number[]
             preparedUniforms[uniformName] = {
-              value: [new THREE.Vector3().fromArray(uniform.value as number[])],
+              value: (uniform.value as number[][]).flat(),
+
               type: "3fv",
             };
           } else {
