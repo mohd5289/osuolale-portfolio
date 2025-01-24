@@ -26,7 +26,7 @@ type ButtonProps<C extends ElementType = "button"> = {
 export function Button<C extends ElementType = "button">({
   borderRadius = "1.75rem",
   children,
-  as: Component = "button", // Default component is 'button'
+  as: Component = "button" as C, // Default component is 'button'
   containerClassName,
   borderClassName,
   duration,
