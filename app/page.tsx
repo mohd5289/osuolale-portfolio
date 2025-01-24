@@ -17,6 +17,7 @@ export default function Home() {
     // This code will only run on the client
     const element = document.getElementById("some-element");
     // Perform actions with the element
+    console.log(element);
   }, []);
   return (
     <div id="some-element">
