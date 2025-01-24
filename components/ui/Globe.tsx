@@ -174,7 +174,11 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .arcStartLng((d) => (d as { startLng: number }).startLng * 1)
       .arcEndLat((d) => (d as { endLat: number }).endLat * 1)
       .arcEndLng((d) => (d as { endLng: number }).endLng * 1)
-      .arcColor((d: { color: string }) => () => d.color)
+      .arcColor((t: number) => {
+        const color = "#ff0000"; // Replace this with the actual logic to retrieve d.color
+        const rgb = hexToRgb(color); // Convert color to RGB
+        return `rgba(${rgb?.r}, ${rgb?.g}, ${rgb?.b}, ${1 - t})`; // Return color based on 't'
+      })
       .arcAltitude((_: { arcAlt: number }) => _.arcAlt * 1)
       .arcStroke(() => {
         return [0.32, 0.28, 0.3][Math.round(Math.random() * 2)];
