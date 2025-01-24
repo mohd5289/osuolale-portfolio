@@ -18,9 +18,9 @@ type ButtonProps<C extends ElementType = "button"> = {
   borderClassName?: string;
   duration?: number;
   className?: string;
-  // Allow additional props based on the type of component used
-  [key: string]: React.HTMLProps<C>[keyof React.HTMLProps<C>];
-};
+  // Merge props of the component passed via `as`
+  [key: string]: any;
+} & React.ComponentProps<C>; // This extends the props of the component being used
 
 // Define the Button component as a generic component
 export function Button<C extends ElementType = "button">({
@@ -42,7 +42,7 @@ export function Button<C extends ElementType = "button">({
       style={{
         borderRadius: borderRadius,
       }}
-      {...otherProps}
+      {...otherProps} // spread the remaining props
     >
       <div
         className="absolute inset-0"
