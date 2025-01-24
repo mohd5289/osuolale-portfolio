@@ -19,7 +19,7 @@ type ButtonProps<C extends ElementType = "button"> = {
   duration?: number;
   className?: string;
   // Merge props of the component passed via `as`
-  [key: string]: any;
+  [key: string]: React.HTMLProps<C>[keyof React.HTMLProps<C>];
 } & React.ComponentProps<C>; // This extends the props of the component being used
 
 // Define the Button component as a generic component
