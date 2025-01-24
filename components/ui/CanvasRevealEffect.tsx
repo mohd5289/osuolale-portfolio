@@ -221,10 +221,22 @@ const ShaderMaterial = ({
           break;
         case "uniform3f":
           if (Array.isArray(uniform.value)) {
-            preparedUniforms[uniformName] = {
-              value: new THREE.Vector3().fromArray(uniform.value),
-              type: "3f",
-            };
+            // Flatten the value if it's a nested array (number[][])
+            const flatValue = Array.isArray(uniform.value[0])
+              ? (uniform.value as number[][]).flat()
+              : (uniform.value as number[]);
+
+            if (flatValue.length >= 3) {
+              preparedUniforms[uniformName] = {
+                value: new THREE.Vector3().fromArray(flatValue.slice(0, 3)), // Use the first 3 values
+                type: "3f",
+              };
+            } else {
+              console.error(
+                `Invalid value for uniform '${uniformName}': Expected at least 3 numbers, but got`,
+                uniform.value
+              );
+            }
           } else {
             console.error(
               `Invalid value for uniform '${uniformName}': Expected an array, but got`,
@@ -244,10 +256,29 @@ const ShaderMaterial = ({
           };
           break;
         case "uniform2f":
-          preparedUniforms[uniformName] = {
-            value: new THREE.Vector2().fromArray(uniform.value),
-            type: "2f",
-          };
+          if (Array.isArray(uniform.value)) {
+            // Check if it's a nested array and flatten it if necessary
+            const flatValue = Array.isArray(uniform.value[0])
+              ? (uniform.value as number[][]).flat()
+              : (uniform.value as number[]);
+
+            if (flatValue.length >= 2) {
+              preparedUniforms[uniformName] = {
+                value: new THREE.Vector2().fromArray(flatValue.slice(0, 2)), // Use the first 2 values
+                type: "2f",
+              };
+            } else {
+              console.error(
+                `Invalid value for uniform '${uniformName}': Expected at least 2 numbers, but got`,
+                uniform.value
+              );
+            }
+          } else {
+            console.error(
+              `Invalid value for uniform '${uniformName}': Expected an array, but got`,
+              uniform.value
+            );
+          }
           break;
         default:
           console.error(`Invalid uniform type for '${uniformName}'.`);
