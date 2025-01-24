@@ -210,87 +210,49 @@ const ShaderMaterial = ({
   });
 
   const getUniforms = () => {
-    const preparedUniforms: Uniforms = {};
+    const preparedUniforms: Record<string, THREE.IUniform> = {};
 
     for (const uniformName in uniforms) {
       const uniform = uniforms[uniformName];
 
       switch (uniform.type) {
         case "uniform1f":
-          preparedUniforms[uniformName] = { value: uniform.value, type: "1f" };
+          preparedUniforms[uniformName] = { value: uniform.value as number };
           break;
         case "uniform3f":
           if (Array.isArray(uniform.value)) {
-            // Flatten the value if it's a nested array (number[][])
             const flatValue = Array.isArray(uniform.value[0])
               ? (uniform.value as number[][]).flat()
               : (uniform.value as number[]);
-
             if (flatValue.length >= 3) {
               preparedUniforms[uniformName] = {
-                value: new THREE.Vector3().fromArray(flatValue.slice(0, 3)), // Use the first 3 values
-                type: "3f",
+                value: new THREE.Vector3(
+                  flatValue[0],
+                  flatValue[1],
+                  flatValue[2]
+                ),
               };
-            } else {
-              console.error(
-                `Invalid value for uniform '${uniformName}': Expected at least 3 numbers, but got`,
-                uniform.value
-              );
             }
-          } else {
-            console.error(
-              `Invalid value for uniform '${uniformName}': Expected an array, but got`,
-              uniform.value
-            );
           }
           break;
         case "uniform1fv":
-          preparedUniforms[uniformName] = { value: uniform.value, type: "1fv" };
+          preparedUniforms[uniformName] = { value: uniform.value as number[] };
           break;
         case "uniform3fv":
-          if (Array.isArray(uniform.value) && Array.isArray(uniform.value[0])) {
-            // uniform.value is a number[][]
-            preparedUniforms[uniformName] = {
-              value: (uniform.value as number[][]).flat(),
-              type: "3fv",
-            };
-          } else if (Array.isArray(uniform.value)) {
-            // uniform.value is a flat number[]
-            preparedUniforms[uniformName] = {
-              value: (uniform.value as number[][]).flat(),
-
-              type: "3fv",
-            };
-          } else {
-            console.error(
-              `Invalid value for uniform '${uniformName}': Expected a number[][] or number[], but got`,
-              uniform.value
-            );
-          }
+          preparedUniforms[uniformName] = {
+            value: (uniform.value as number[][]).flat(),
+          };
           break;
         case "uniform2f":
           if (Array.isArray(uniform.value)) {
-            // Check if it's a nested array and flatten it if necessary
             const flatValue = Array.isArray(uniform.value[0])
               ? (uniform.value as number[][]).flat()
               : (uniform.value as number[]);
-
             if (flatValue.length >= 2) {
               preparedUniforms[uniformName] = {
-                value: new THREE.Vector2().fromArray(flatValue.slice(0, 2)), // Use the first 2 values
-                type: "2f",
+                value: new THREE.Vector2(flatValue[0], flatValue[1]),
               };
-            } else {
-              console.error(
-                `Invalid value for uniform '${uniformName}': Expected at least 2 numbers, but got`,
-                uniform.value
-              );
             }
-          } else {
-            console.error(
-              `Invalid value for uniform '${uniformName}': Expected an array, but got`,
-              uniform.value
-            );
           }
           break;
         default:
@@ -299,10 +261,11 @@ const ShaderMaterial = ({
       }
     }
 
-    preparedUniforms["u_time"] = { value: 0, type: "1f" };
+    preparedUniforms["u_time"] = { value: 0 }; // Assigning time uniform
     preparedUniforms["u_resolution"] = {
       value: new THREE.Vector2(size.width * 2, size.height * 2),
-    }; // Initialize u_resolution
+    };
+
     return preparedUniforms;
   };
 
