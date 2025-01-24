@@ -1,5 +1,5 @@
 "use client";
-import React, { ElementType, ReactNode, useRef } from "react";
+import React, { ElementType, ReactNode, SVGProps, useRef } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -19,7 +19,7 @@ type ButtonProps<C extends ElementType> = {
   duration?: number;
   className?: string;
   // Spread additional props for the Component
-  [key: string]: any;
+  [key: string]: React.HTMLProps<C>[keyof React.HTMLProps<C>];
 };
 
 // Define the Button component as a generic component
@@ -79,7 +79,7 @@ type MovingBorderProps = {
   duration?: number;
   rx?: string;
   ry?: string;
-  [key: string]: any;
+  [key: string]: string;
 };
 
 export const MovingBorder = ({
