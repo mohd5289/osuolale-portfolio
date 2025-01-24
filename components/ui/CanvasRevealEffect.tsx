@@ -220,10 +220,17 @@ const ShaderMaterial = ({
           preparedUniforms[uniformName] = { value: uniform.value, type: "1f" };
           break;
         case "uniform3f":
-          preparedUniforms[uniformName] = {
-            value: new THREE.Vector3().fromArray(uniform.value),
-            type: "3f",
-          };
+          if (Array.isArray(uniform.value)) {
+            preparedUniforms[uniformName] = {
+              value: new THREE.Vector3().fromArray(uniform.value),
+              type: "3f",
+            };
+          } else {
+            console.error(
+              `Invalid value for uniform '${uniformName}': Expected an array, but got`,
+              uniform.value
+            );
+          }
           break;
         case "uniform1fv":
           preparedUniforms[uniformName] = { value: uniform.value, type: "1fv" };
