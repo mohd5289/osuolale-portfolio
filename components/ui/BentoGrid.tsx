@@ -4,10 +4,14 @@ import dynamic from "next/dynamic";
 import { cn } from "@/utils/cn";
 
 const BackgroundGradientAnimation = dynamic(
-  () => import("./BackgroundGradientAnimation"),
+  async () =>
+    (await import("./BackgroundGradientAnimation")).BackgroundGradientAnimation,
   { ssr: false }
 );
-const GlobeDemo = dynamic(() => import("./GridGlobe"), { ssr: false });
+
+const GlobeDemo = dynamic(async () => (await import("./GridGlobe")).GlobeDemo, {
+  ssr: false,
+});
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 const MagicButton = dynamic(() => import("./MagicButton"), { ssr: false });
 
