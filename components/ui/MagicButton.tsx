@@ -1,15 +1,13 @@
-import React from "react";
-
 const MagicButton = ({
   title,
   icon,
-  position,
+  position = "left", // Default to "left"
   handleClick,
   otherClasses,
 }: {
   title: string;
   icon: React.ReactNode;
-  position: string;
+  position?: string;
   handleClick?: () => void;
   otherClasses?: string;
 }) => {
@@ -29,5 +27,3 @@ const MagicButton = ({
     </button>
   );
 };
-
-export default MagicButton;

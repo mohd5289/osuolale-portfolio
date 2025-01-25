@@ -1,4 +1,3 @@
-"use client";
 import Approach from "@/components/Approach";
 import Clients from "@/components/Clients";
 import Experience from "@/components/Experience";
@@ -8,22 +7,13 @@ import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import Grid from "@/components/ui/Grid";
 import { navItems } from "@/data";
-import { useState, useEffect } from "react";
 
 export default function Home() {
-  // State to check if the component is mounted
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Set the component to mounted once it has loaded on the client
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Render null until component is mounted (client-side only)
-  if (!isMounted) return null;
+  // const [isMounted, setIsMounted] = useState(false);
 
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 overflow-clip">
+    <main className="relative bg-black-100 flex justify-center items-center flex-col  mx-auto sm:px-10 px-5 overflow-clip">
+      (
       <div className="max-w-7xl w-full flex flex-col">
         <FloatingNav navItems={navItems} />
         <Hero />
@@ -38,6 +28,7 @@ export default function Home() {
         {/* Radial gradient for the container to give a faded look */}
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
       </div>
+      )
     </main>
   );
 }
