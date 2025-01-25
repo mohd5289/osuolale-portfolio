@@ -1,3 +1,5 @@
+import React from "react";
+
 const MagicButton = ({
   title,
   icon,
@@ -27,3 +29,4 @@ const MagicButton = ({
     </button>
   );
 };
+export default MagicButton;
