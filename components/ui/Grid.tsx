@@ -1,14 +1,20 @@
 import React from "react";
-import { BentoGrid, BentoGridItem } from "./BentoGrid";
+// import { BentoGrid, BentoGridItem } from "./BentoGrid";
+import dynamic from "next/dynamic";
 import { gridItems } from "@/data";
 
+const BentoGrid = dynamic(
+  () => import("./BentoGrid").then((mod) => mod.BentoGrid),
+  {
+    ssr: false,
+  }
+);
+const BentoGridItem = dynamic(
+  () => import("./BentoGrid").then((mod) => mod.BentoGridItem),
+  { ssr: false }
+);
+
 const Grid = () => {
-  // useEffect(() => {
-  //   // This code will only run on the client
-  //   const element = document.getElementById("about");
-  //   // Perform actions with the element
-  //   console.log(element);
-  // }, []);
   return (
     <section id="about">
       <BentoGrid>
