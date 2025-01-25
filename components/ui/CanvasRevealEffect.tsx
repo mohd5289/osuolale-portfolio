@@ -63,7 +63,7 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
   opacities = [0.04, 0.04, 0.04, 0.04, 0.04, 0.08, 0.08, 0.08, 0.08, 0.14],
   totalSize = 4,
   dotSize = 2,
-  shader = "",
+
   center = ["x", "y"],
 }) => {
   const uniforms = useMemo(() => {
