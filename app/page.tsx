@@ -1,4 +1,3 @@
-"use client";
 import Approach from "@/components/Approach";
 import Clients from "@/components/Clients";
 import Experience from "@/components/Experience";
@@ -13,12 +12,6 @@ import { useEffect } from "react";
 export default function Home() {
   // const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    // This code will only run on the client
-    const element = document.getElementById("some-element");
-    // Perform actions with the element
-    console.log(element);
-  }, []);
   return (
     <div id="some-element">
       <main className="relative bg-black-100 flex justify-center items-center flex-col  mx-auto sm:px-10 px-5 overflow-clip">
