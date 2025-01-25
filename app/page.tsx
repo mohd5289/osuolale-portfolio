@@ -7,7 +7,6 @@ import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import Grid from "@/components/ui/Grid";
 import { navItems } from "@/data";
-import { useEffect } from "react";
 
 export default function Home() {
   // const [isMounted, setIsMounted] = useState(false);
