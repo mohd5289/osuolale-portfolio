@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { gridItems } from "@/data";
 
@@ -14,8 +14,8 @@ const BentoGridItem = dynamic(
 
 const Grid = () => {
   return (
-    <section id="about">
-      <div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <section id="about">
         <BentoGrid>
           {gridItems.map(
             ({
@@ -42,8 +42,8 @@ const Grid = () => {
             )
           )}
         </BentoGrid>
-      </div>
-    </section>
+      </section>
+    </Suspense>
   );
 };
 
