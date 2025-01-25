@@ -92,7 +92,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
   };
 
   useEffect(() => {
-    if (globeRef.current) {
+    if (typeof window !== "undefined" && globeRef.current) {
       _buildData();
       _buildMaterial();
     }
@@ -149,7 +149,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
   };
 
   useEffect(() => {
-    if (globeRef.current && globeData) {
+    if (typeof window !== "undefined" && globeRef.current && globeData) {
       globeRef.current
         .hexPolygonsData(countries.features)
         .hexPolygonResolution(3)
@@ -215,24 +215,24 @@ export function Globe({ globeConfig, data }: WorldProps) {
   };
 
   useEffect(() => {
-    if (!globeRef.current || !globeData) return;
+    if (typeof window !== "undefined" && globeRef.current && globeData) {
+      const interval = setInterval(() => {
+        if (!globeRef.current || !globeData) return;
+        numbersOfRings = genRandomNumbers(
+          0,
+          data.length,
+          Math.floor((data.length * 4) / 5)
+        );
 
-    const interval = setInterval(() => {
-      if (!globeRef.current || !globeData) return;
-      numbersOfRings = genRandomNumbers(
-        0,
-        data.length,
-        Math.floor((data.length * 4) / 5)
-      );
+        globeRef.current.ringsData(
+          globeData.filter((d, i) => numbersOfRings.includes(i))
+        );
+      }, 2000);
 
-      globeRef.current.ringsData(
-        globeData.filter((d, i) => numbersOfRings.includes(i))
-      );
-    }, 2000);
-
-    return () => {
-      clearInterval(interval);
-    };
+      return () => {
+        clearInterval(interval);
+      };
+    }
   }, [globeRef.current, globeData]);
 
   return (
