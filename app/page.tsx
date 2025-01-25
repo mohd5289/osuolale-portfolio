@@ -1,3 +1,4 @@
+"use client";
 import Approach from "@/components/Approach";
 import Clients from "@/components/Clients";
 import Experience from "@/components/Experience";
@@ -7,10 +8,19 @@ import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import Grid from "@/components/ui/Grid";
 import { navItems } from "@/data";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  // Uncomment and use `isMounted` if you want to control client-side rendering
-  // const [isMounted, setIsMounted] = useState(false);
+  // State to check if the component is mounted
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Set the component to mounted once it has loaded on the client
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Render null until component is mounted (client-side only)
+  if (!isMounted) return null;
 
   return (
     <main className="relative bg-black-100 flex justify-center items-center flex-col mx-auto sm:px-10 px-5 overflow-clip">
