@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { cn } from "@/utils/cn";
 
@@ -64,7 +64,23 @@ export const BentoGridItem = ({
       setCopied(true);
     }
   };
+  const MemoizedGlobeDemo = useMemo(() => {
+    return id === 2 ? <GlobeDemo /> : null;
+  }, [id]);
 
+  // Memoize Lottie animation to prevent unnecessary re-renders
+  const MemoizedLottie = useMemo(() => {
+    return id === 6 ? (
+      <Lottie
+        loop={copied}
+        autoplay={copied}
+        animationData={animationData}
+        rendererSettings={{
+          preserveAspectRatio: "xMidYMid slice",
+        }}
+      />
+    ) : null;
+  }, [copied, id]);
   return (
     <div
       className={cn(
