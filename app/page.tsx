@@ -5,7 +5,7 @@
 import Hero from "@/components/Hero";
 // import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
-// import Grid from "@/components/ui/Grid";
+import Grid from "@/components/ui/Grid";
 import { navItems } from "@/data";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
       <div className="max-w-7xl w-full flex flex-col">
         <FloatingNav navItems={navItems} />
         <Hero />
-        {/* <Grid /> */}
+        <Grid />
         {/* <RecentProjects /> */}
         {/* <Clients /> */}
         {/* <Experience /> */}
