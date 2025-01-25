@@ -129,11 +129,7 @@ const DotMatrix: React.FC<DotMatrixProps> = ({
   );
 };
 
-const ShaderComponent: React.FC<ShaderProps> = ({
-  source,
-  uniforms,
-  maxFps = 60,
-}) => {
+const ShaderComponent: React.FC<ShaderProps> = ({ source, uniforms }) => {
   const { size } = useThree();
   const ref = useRef<THREE.Mesh>(null);
 
