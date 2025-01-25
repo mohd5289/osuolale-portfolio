@@ -1,5 +1,11 @@
 "use client";
-import React, { ElementType, ReactNode, useRef } from "react";
+import React, {
+  ElementType,
+  ReactNode,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import {
   motion,
   useAnimationFrame,
@@ -92,12 +98,21 @@ export const MovingBorder = ({
 }: MovingBorderProps) => {
   const rectRef = useRef<SVGRectElement | null>(null);
   const progress = useMotionValue<number>(0);
+  const [isClient, setIsClient] = useState(false); // Track if we're on the client side
 
+  // Set isClient to true after component mounts to ensure the DOM is available
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Don't run the animation frame logic on SSR
   useAnimationFrame((time) => {
-    const length = rectRef.current?.getTotalLength();
-    if (length) {
-      const pxPerMillisecond = length / duration;
-      progress.set((time * pxPerMillisecond) % length);
+    if (isClient && rectRef.current) {
+      const length = rectRef.current?.getTotalLength();
+      if (length) {
+        const pxPerMillisecond = length / duration;
+        progress.set((time * pxPerMillisecond) % length);
+      }
     }
   });
 
@@ -114,34 +129,38 @@ export const MovingBorder = ({
 
   return (
     <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-        className="absolute h-full w-full"
-        width="100%"
-        height="100%"
-        {...otherProps}
-      >
-        <rect
-          fill="none"
+      {isClient && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          className="absolute h-full w-full"
           width="100%"
           height="100%"
-          rx={rx}
-          ry={ry}
-          ref={rectRef}
-        />
-      </svg>
-      <motion.div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          display: "inline-block",
-          transform,
-        }}
-      >
-        {children}
-      </motion.div>
+          {...otherProps}
+        >
+          <rect
+            fill="none"
+            width="100%"
+            height="100%"
+            rx={rx}
+            ry={ry}
+            ref={rectRef}
+          />
+        </svg>
+      )}
+      {isClient && (
+        <motion.div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            display: "inline-block",
+            transform,
+          }}
+        >
+          {children}
+        </motion.div>
+      )}
     </>
   );
 };
