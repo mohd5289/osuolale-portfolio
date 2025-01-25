@@ -68,7 +68,7 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        "row-span-1 relative overflow-hidden rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none justify-between flex flex-col space-y-4 border border-white ",
+        "row-span-1 relative overflow-hidden rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none justify-between flex flex-col space-y-4 border border-white",
         className
       )}
       style={{
@@ -77,7 +77,7 @@ export const BentoGridItem = ({
           "linear-gradient(90deg,rgba(2,0,36,1) 0%, rgba(59,59,68,1) 26%, rgba(93,108,111,1) 100%)",
       }}
     >
-      <div className={`${id === 6 && "flex justify-center"} h-full `}>
+      <div className={`${id === 6 && "flex justify-center"} h-full`}>
         <div className="w-full h-full absolute">
           {img && (
             <img
@@ -136,10 +136,10 @@ export const BentoGridItem = ({
                     {item}
                   </span>
                 ))}
-                <span className="py-4 px-3 rounded-lg text-center bg-[#10132e] " />
+                <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
               </div>
               <div className="flex flex-col gap-3 lg:gap-8">
-                <span className="py-4 px-3 rounded-lg text-center bg-[#10132e] " />
+                <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
                 {[
                   "Laravel",
                   " MongoDB",
@@ -160,7 +160,7 @@ export const BentoGridItem = ({
             </div>
           )}
           {id === 6 && (
-            <div className="mt-5 relative ">
+            <div className="mt-5 relative">
               <div className="absolute -bottom-5 right-0">
                 <Lottie
                   loop={copied}
