@@ -34,13 +34,22 @@ export const CanvasRevealEffect = ({
       className={cn("h-full relative bg-white w-full", containerClassName)}
       style={containerStyle}
     >
-      <div className="h-full w-full">
-        <DotMatrix
-          colors={colors}
-          dotSize={dotSize ?? 3}
-          opacities={opacities}
-          center={["x", "y"]}
-        />
+      <div className="absolute inset-0 flex flex-wrap">
+        {Array.from({ length: 50 }, (_, index) => (
+          <div
+            key={index}
+            className="w-2 h-2 bg-black"
+            style={{
+              position: "absolute",
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animation: `dotMovement ${animationSpeed}s infinite`,
+              opacity: opacities[index % opacities.length],
+              width: `${dotSize || 3}px`,
+              height: `${dotSize || 3}px`,
+            }}
+          />
+        ))}
       </div>
       {showGradient && (
         <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-[84%]" />
