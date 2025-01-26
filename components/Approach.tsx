@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { CanvasRevealEffect } from "@/components/ui/CanvasRevealEffect";
+import {
+  CanvasRevealEffect,
+  MemoizedCanvasRevealEffect,
+} from "@/components/ui/CanvasRevealEffect";
 
 const Approach = () => {
   return (
@@ -15,7 +18,7 @@ const Approach = () => {
           icon={<AceternityIcon order="Phase 1" />}
           description="We'll collaborate to map out your websites goals, target audience and key functionalities. We'll discuss thinjgs like site structure, navigation and content requirements"
         >
-          <CanvasRevealEffect
+          <MemoizedCanvasRevealEffect
             animationSpeed={5.1}
             containerClassName="bg-emerald-900"
           />
@@ -25,7 +28,7 @@ const Approach = () => {
           icon={<AceternityIcon order="Phase 2" />}
           description="Once we agree on the plan, I cue my lofi playlist and dive into coding. From initial sketches to polished code, I keep you updated every step of the way"
         >
-          <CanvasRevealEffect
+          <MemoizedCanvasRevealEffect
             animationSpeed={3}
             containerClassName="bg-black"
             colors={[
@@ -42,7 +45,7 @@ const Approach = () => {
           icon={<AceternityIcon order="Phase 3" />}
           description="This is where the magic happens! based on the approved design, I'll translate everything into functional code, building your website from the ground up"
         >
-          <CanvasRevealEffect
+          <MemoizedCanvasRevealEffect
             animationSpeed={3}
             containerClassName="bg-sky-600"
             colors={[[125, 211, 252]]}

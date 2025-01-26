@@ -48,7 +48,7 @@ export const CanvasRevealEffect = ({
     </div>
   );
 };
-
+export const MemoizedCanvasRevealEffect = React.memo(CanvasRevealEffect);
 interface DotMatrixProps {
   colors?: number[][];
   opacities?: number[];
