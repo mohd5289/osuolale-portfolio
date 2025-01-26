@@ -17,12 +17,14 @@ export const CanvasRevealEffect = ({
   containerClassName,
   dotSize,
   showGradient = true,
+  animationSpeed = 1,
 }: {
   opacities?: number[];
   colors?: number[][];
   containerClassName?: string;
   dotSize?: number;
   showGradient?: boolean;
+  animationSpeed?: number;
 }) => {
   return (
     <div className={cn("h-full relative bg-white w-full", containerClassName)}>
