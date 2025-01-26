@@ -9,9 +9,9 @@ const BackgroundGradientAnimation = dynamic(
   { ssr: false }
 );
 
-const GlobeDemo = dynamic(async () => (await import("./GridGlobe")).GlobeDemo, {
-  ssr: false,
-});
+// const GlobeDemo = dynamic(async () => (await import("./GridGlobe")).GlobeDemo, {
+//   ssr: false,
+// });
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 const MagicButton = dynamic(() => import("./MagicButton"), { ssr: false });
 
@@ -64,9 +64,9 @@ export const BentoGridItem = ({
       setCopied(true);
     }
   };
-  const MemoizedGlobeDemo = useMemo(() => {
-    return id === 2 ? <GlobeDemo /> : null;
-  }, [id]);
+  // const MemoizedGlobeDemo = useMemo(() => {
+  //   return id === 2 ? <GlobeDemo /> : null;
+  // }, [id]);
 
   // Memoize Lottie animation to prevent unnecessary re-renders
   const MemoizedLottie = useMemo(() => {
@@ -135,7 +135,7 @@ export const BentoGridItem = ({
           </div>
 
           {/* {id === 2 && <GlobeDemo />} */}
-          {MemoizedGlobeDemo}
+          {/* {MemoizedGlobeDemo} */}
           {id === 3 && (
             <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
               <div className="flex flex-col gap-3 lg:gap-8">
