@@ -26,8 +26,14 @@ export const CanvasRevealEffect = ({
   showGradient?: boolean;
   animationSpeed?: number;
 }) => {
+  const containerStyle = {
+    animationDuration: `${animationSpeed}s`, // Adjust animation duration based on speed
+  };
   return (
-    <div className={cn("h-full relative bg-white w-full", containerClassName)}>
+    <div
+      className={cn("h-full relative bg-white w-full", containerClassName)}
+      style={containerStyle}
+    >
       <div className="h-full w-full">
         <DotMatrix
           colors={colors}
