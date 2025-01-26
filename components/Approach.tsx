@@ -2,6 +2,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MemoizedCanvasRevealEffect } from "@/components/ui/CanvasRevealEffect";
+import { cn } from "@/utils/cn";
 
 const Approach = () => {
   return (
@@ -77,17 +78,15 @@ const Card = ({
       <Icon className="absolute h-6 w-6 -top-3 -right-3 dark:text-white text-black" />
       <Icon className="absolute h-6 w-6 -bottom-3 -right-3 dark:text-white text-black" />
 
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="h-full w-full absolute inset-0"
-          >
-            {children}
-          </motion.div>
+      {/* Always render CanvasRevealEffect */}
+      <div
+        className={cn(
+          "absolute inset-0 transition-opacity duration-300",
+          hovered ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
-      </AnimatePresence>
+      >
+        {children}
+      </div>
 
       <div className="relative z-20">
         <div className="text-center group-hover/canvas-card:-translate-y-4 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[50%] group-hover/canvas-card:opacity-0 transition duration-200 w-full  mx-auto flex items-center justify-center">
