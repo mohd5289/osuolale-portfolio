@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 export const InfiniteMovingCards = ({
   items,
@@ -20,73 +20,28 @@ export const InfiniteMovingCards = ({
   pauseOnHover?: boolean;
   className?: string;
 }) => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const scrollerRef = React.useRef<HTMLUListElement>(null);
-  const [isClient, setIsClient] = useState(false);
-  const [start, setStart] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLUListElement>(null);
 
-  // Set isClient to true after component mounts to ensure the DOM is available
+  // Duplicates the content for smooth infinite scrolling
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // Ensure addAnimation only runs once
-  useEffect(() => {
-    if (isClient && !start) {
-      addAnimation();
-    }
-  }, [isClient, start]);
-
-  const addAnimation = () => {
-    if (containerRef.current && scrollerRef.current) {
+    if (scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
+      // Duplicate each child element and append to the container
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem);
-        }
+        scrollerRef.current?.appendChild(duplicatedItem);
       });
-
-      getDirection();
-      getSpeed();
-      setStart(true); // Set start to true after animation is added
     }
-  };
-
-  const getDirection = () => {
-    if (containerRef.current) {
-      if (direction === "left") {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "forwards"
-        );
-      } else {
-        containerRef.current.style.setProperty(
-          "--animation-direction",
-          "reverse"
-        );
-      }
-    }
-  };
-
-  const getSpeed = () => {
-    if (containerRef.current) {
-      if (speed === "fast") {
-        containerRef.current.style.setProperty("--animation-duration", "20s");
-      } else if (speed === "normal") {
-        containerRef.current.style.setProperty("--animation-duration", "40s");
-      } else {
-        containerRef.current.style.setProperty("--animation-duration", "80s");
-      }
-    }
-  };
+  }, []);
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20 w-screen overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller relative z-20 w-screen overflow-hidden",
+        "[mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className
       )}
     >
@@ -94,9 +49,14 @@ export const InfiniteMovingCards = ({
         ref={scrollerRef}
         className={cn(
           "flex min-w-full shrink-0 gap-16 py-4 w-max flex-nowrap",
-          start && "animate-scroll ",
+          "animate-scroll",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
+        style={{
+          animationDuration:
+            speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s",
+          animationDirection: direction === "left" ? "normal" : "reverse",
+        }}
       >
         {items.map((item, idx) => (
           <li
