@@ -1,7 +1,7 @@
-<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="100" cy="100" r="90" fill="#1e3a8a" />
-  <circle cx="100" cy="100" r="70" fill="white" />
-  <circle cx="100" cy="100" r="50" fill="#34d399" />
-  <circle cx="100" cy="100" r="30" fill="#f87171" />
-  <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="10s" repeatCount="indefinite"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <circle cx="50" cy="50" r="45" fill="#0077be" />
+  <path d="M50 5 A45 45 0 0 1 95 50 A45 45 0 0 1 50 95 A45 45 0 0 1 5 50 A45 45 0 0 1 50 5 Z" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <path d="M30 30 Q40 20, 50 30 T70 30" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <path d="M20 50 Q30 40, 40 50 T60 50" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 50 50" to="360 50 50" dur="10s" repeatCount="indefinite"/>
 </svg>
