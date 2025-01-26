@@ -35,7 +35,7 @@ const Footer = () => {
           className="w-32 h-32 rounded-full object-cover mb-4" // Adjust size and styling as needed
         />
         <p className="text-white-200 my-5 text-center">Connect with me on:</p>
-        <div className="flex space-x-4">
+        <div className=" flex sm:flex-row flex-col space-x-4 space-y-2">
           <a
             href="https://wa.me/+2347034233935"
             target="_blank"
