@@ -23,21 +23,21 @@ export const InfiniteMovingCards = ({
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollerRef = React.useRef<HTMLUListElement>(null);
   const [isClient, setIsClient] = useState(false);
+  const [start, setStart] = useState(false);
 
   // Set isClient to true after component mounts to ensure the DOM is available
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Ensure addAnimation only runs once
   useEffect(() => {
-    if (isClient) {
+    if (isClient && !start) {
       addAnimation();
     }
-  }, [isClient]);
+  }, [isClient, start]);
 
-  const [start, setStart] = useState(false);
-
-  function addAnimation() {
+  const addAnimation = () => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
@@ -50,9 +50,9 @@ export const InfiniteMovingCards = ({
 
       getDirection();
       getSpeed();
-      setStart(true);
+      setStart(true); // Set start to true after animation is added
     }
-  }
+  };
 
   const getDirection = () => {
     if (containerRef.current) {
