@@ -13,7 +13,6 @@ const ShaderComponent = dynamic(
 
 export const CanvasRevealEffect = ({
   opacities = [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
-  colors = [[0, 255, 255]],
   containerClassName,
   dotSize,
   showGradient = true,
