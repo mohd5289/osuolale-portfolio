@@ -1,0 +1,7 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" r="90" fill="#1e3a8a" />
+  <circle cx="100" cy="100" r="70" fill="white" />
+  <circle cx="100" cy="100" r="50" fill="#34d399" />
+  <circle cx="100" cy="100" r="30" fill="#f87171" />
+  <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="10s" repeatCount="indefinite"/>
+</svg>
