@@ -137,42 +137,44 @@ export const BentoGridItem = ({
           {/* {id === 2 && <GlobeDemo />} */}
           {/* {MemoizedGlobeDemo} */}
           {id === 3 && (
-            <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
-              <div className="flex flex-col gap-3 lg:gap-8">
-                {[
-                  "React.js",
-                  " Next.js",
-                  "Typescript",
-                  "Android Studio",
-                  "Kotlin",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="py-2 lg:py-4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                  >
-                    {item}
-                  </span>
-                ))}
-                <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
-              </div>
-              <div className="flex flex-col gap-3 lg:gap-8">
-                <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
-                {[
-                  "Laravel",
-                  " MongoDB",
-                  "MySQL",
-                  "Spring Boot",
-                  "Firebase",
-                  "Appwrite",
-                  "FastApi",
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="py-2 lg:py-4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                  >
-                    {item}
-                  </span>
-                ))}
+            <div className="relative flex flex-col justify-between gap-4 h-full">
+              <div className="flex gap-1 lg:gap-5 w-fit mx-auto">
+                <div className="flex flex-col gap-3 lg:gap-8">
+                  {[
+                    "React.js",
+                    "Next.js",
+                    "Typescript",
+                    "Android Studio",
+                    "Kotlin",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="py-2 lg:py-4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                  <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
+                </div>
+                <div className="flex flex-col gap-3 lg:gap-8">
+                  <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
+                  {[
+                    "Laravel",
+                    "MongoDB",
+                    "MySQL",
+                    "Spring Boot",
+                    "Firebase",
+                    "Appwrite",
+                    "FastApi",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="py-2 lg:py-4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           )}
