@@ -1,10 +1,7 @@
 "use client";
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  CanvasRevealEffect,
-  MemoizedCanvasRevealEffect,
-} from "@/components/ui/CanvasRevealEffect";
+import { MemoizedCanvasRevealEffect } from "@/components/ui/CanvasRevealEffect";
 
 const Approach = () => {
   return (
