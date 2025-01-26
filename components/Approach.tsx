@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+// import { AnimatePresence, motion } from "framer-motion";
 import { MemoizedCanvasRevealEffect } from "@/components/ui/CanvasRevealEffect";
 import { cn } from "@/utils/cn";
 
