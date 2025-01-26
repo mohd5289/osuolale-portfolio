@@ -12,14 +12,12 @@ const ShaderComponent = dynamic(
 );
 
 export const CanvasRevealEffect = ({
-  animationSpeed = 0.4,
   opacities = [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
   colors = [[0, 255, 255]],
   containerClassName,
   dotSize,
   showGradient = true,
 }: {
-  animationSpeed?: number;
   opacities?: number[];
   colors?: number[][];
   containerClassName?: string;
@@ -33,7 +31,6 @@ export const CanvasRevealEffect = ({
           colors={colors}
           dotSize={dotSize ?? 3}
           opacities={opacities}
-          animationSpeed={animationSpeed}
           center={["x", "y"]}
         />
       </div>
@@ -47,8 +44,6 @@ export const CanvasRevealEffect = ({
 interface DotMatrixProps {
   colors?: number[][];
   opacities?: number[];
-  animationSpeed: number;
-  totalSize?: number;
   dotSize?: number;
   center?: ("x" | "y")[];
 }
@@ -57,8 +52,6 @@ const DotMatrix: React.FC<DotMatrixProps> = React.memo(
   ({
     colors = [[0, 0, 0]],
     opacities = [0.04, 0.04, 0.04, 0.04, 0.04, 0.08, 0.08, 0.08, 0.08, 0.14],
-    animationSpeed,
-    totalSize = 4,
     dotSize = 2,
     center = ["x", "y"],
   }) => {
@@ -79,10 +72,9 @@ const DotMatrix: React.FC<DotMatrixProps> = React.memo(
           ]),
         },
         u_opacities: { value: opacities },
-        u_total_size: { value: totalSize },
         u_dot_size: { value: dotSize },
       };
-    }, [colors, opacities, totalSize, dotSize]);
+    }, [colors, opacities, dotSize]);
 
     const shader = useMemo(
       () => `
@@ -91,7 +83,6 @@ const DotMatrix: React.FC<DotMatrixProps> = React.memo(
         uniform float u_time;
         uniform float u_opacities[10];
         uniform vec3 u_colors[6];
-        uniform float u_total_size;
         uniform float u_dot_size;
         uniform vec2 u_resolution;
         out vec4 fragColor;
@@ -103,16 +94,16 @@ const DotMatrix: React.FC<DotMatrixProps> = React.memo(
           vec2 st = fragCoord.xy;
           ${
             center.includes("x")
-              ? "st.x -= abs(floor((mod(u_resolution.x, u_total_size) - u_dot_size) * 0.5));"
+              ? "st.x -= abs(floor((mod(u_resolution.x, u_dot_size) - u_dot_size) * 0.5));"
               : ""
           }
           ${
             center.includes("y")
-              ? "st.y -= abs(floor((mod(u_resolution.y, u_total_size) - u_dot_size) * 0.5));"
+              ? "st.y -= abs(floor((mod(u_resolution.y, u_dot_size) - u_dot_size) * 0.5));"
               : ""
           }
           float opacity = step(0.0, st.x) * step(0.0, st.y);
-          vec2 st2 = vec2(int(st.x / u_total_size), int(st.y / u_total_size));
+          vec2 st2 = vec2(int(st.x / u_dot_size), int(st.y / u_dot_size));
           opacity *= u_opacities[int(random(st2) * 10.0)];
           fragColor = vec4(u_colors[0], opacity);
         }
@@ -123,6 +114,8 @@ const DotMatrix: React.FC<DotMatrixProps> = React.memo(
     return <ShaderComponent source={shader} uniforms={uniforms} />;
   }
 );
+
+DotMatrix.displayName = "DotMatrix";
 
 const InternalShaderComponent: React.FC<ShaderProps> = ({
   source,
@@ -169,9 +162,11 @@ const InternalShaderComponent: React.FC<ShaderProps> = ({
   );
 };
 
+InternalShaderComponent.displayName = "InternalShaderComponent";
+
 interface ShaderProps {
   source: string;
   uniforms: {
-    [key: string]: { value: any };
+    [key: string]: { value: unknown };
   };
 }
