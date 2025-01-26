@@ -138,8 +138,8 @@ export const BentoGridItem = ({
           {/* {MemoizedGlobeDemo} */}
           {id === 3 && (
             <div className="relative flex flex-col justify-between gap-4 h-full">
-              <div className="flex gap-1 lg:gap-5 w-fit mx-auto">
-                <div className="flex flex-col gap-3 lg:gap-8">
+              <div className="flex gap-4 lg:gap-8 w-full mx-auto justify-center">
+                <div className="flex flex-col gap-4 lg:gap-8">
                   {[
                     "React.js",
                     "Next.js",
@@ -149,15 +149,13 @@ export const BentoGridItem = ({
                   ].map((item) => (
                     <span
                       key={item}
-                      className="py-2 lg:py-4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
+                      className="py-4 px-3 lg:px-5 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E] flex items-center justify-center"
                     >
                       {item}
                     </span>
                   ))}
-                  <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
                 </div>
-                <div className="flex flex-col gap-3 lg:gap-8">
-                  <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
+                <div className="flex flex-col gap-4 lg:gap-8">
                   {[
                     "Laravel",
                     "MongoDB",
@@ -169,7 +167,7 @@ export const BentoGridItem = ({
                   ].map((item) => (
                     <span
                       key={item}
-                      className="py-2 lg:py-4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
+                      className="py-4 px-3 lg:px-5 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E] flex items-center justify-center"
                     >
                       {item}
                     </span>
