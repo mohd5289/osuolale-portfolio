@@ -2,6 +2,10 @@
 import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { cn } from "@/utils/cn";
+import { IoCopyOutline } from "react-icons/io5";
+import animationData from "@/data/confetti.json";
+import Head from "next/head";
+import Image from "next/image";
 
 const BackgroundGradientAnimation = dynamic(
   async () =>
@@ -15,9 +19,20 @@ const BackgroundGradientAnimation = dynamic(
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 const MagicButton = dynamic(() => import("./MagicButton"), { ssr: false });
 
-import { IoCopyOutline } from "react-icons/io5";
-import animationData from "@/data/confetti.json";
-
+const skills = [
+  "React.js",
+  "Next.js",
+  "Typescript",
+  "Android Studio",
+  "Kotlin",
+  "Laravel",
+  "MongoDB",
+  "MySQL",
+  "Spring Boot",
+  "Firebase",
+  "Appwrite",
+  "FastApi",
+];
 export const BentoGrid = ({
   className,
   children,
@@ -25,15 +40,44 @@ export const BentoGrid = ({
   className?: string;
   children?: React.ReactNode;
 }) => {
+  const structuredData = {
+    "@context": "http://schema.org",
+    "@type": "ItemList",
+    itemListElement: skills.map((skill, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: skill,
+    })),
+  };
   return (
-    <div
-      className={cn(
-        "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ",
-        className
-      )}
-    >
-      {children}
-    </div>
+    <>
+      <Head>
+        <title>
+          Top Web Development Skills | React, Next.js, Kotlin & More
+        </title>
+        <meta
+          name="description"
+          content="A showcase of skills and technologies like React, Next.js, Kotlin, and more."
+        />
+        <meta
+          name="keywords"
+          content="React, Next.js, Kotlin, Laravel, Firebase, Appwrite, FastApi, MongoDB"
+        />
+        <meta name="robots" content="index, follow" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </Head>
+      <div
+        className={cn(
+          "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ",
+          className
+        )}
+      >
+        {children}
+      </div>
+    </>
   );
 };
 
@@ -82,7 +126,7 @@ export const BentoGridItem = ({
     ) : null;
   }, [copied, id]);
   return (
-    <div
+    <article
       className={cn(
         "row-span-1 relative overflow-hidden rounded-3xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none justify-between flex flex-col space-y-4 border border-white",
         className
@@ -96,10 +140,12 @@ export const BentoGridItem = ({
       <div className={`${id === 6 && "flex justify-center"} h-full`}>
         <div className="w-full h-full absolute">
           {img && (
-            <img
+            <Image
               src={img}
               alt={img}
               className={cn(imgClassName, "object-cover object-center")}
+              fill // Automatically sets width and height responsively
+              priority={id === 1}
             />
           )}
         </div>
@@ -109,10 +155,12 @@ export const BentoGridItem = ({
           }`}
         >
           {spareImg && (
-            <img
+            <Image
               src={spareImg}
               alt={spareImg}
               className="object-cover object-center w-full h-full"
+              fill // Automatically sets width and height responsively
+              priority={id === 1}
             />
           )}
         </div>
@@ -127,12 +175,14 @@ export const BentoGridItem = ({
             "group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min-h-40 flex flex-col px-5 p-5 lg:p-10"
           )}
         >
-          <div className="font-sans font-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-10">
-            {description}
-          </div>
-          <div className="font-sans font-bold text-lg dark:text-neutral-200 mb-2 mt-2">
-            {title}
-          </div>
+          <header>
+            <div className="font-sans font-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-10">
+              {description}
+            </div>
+            <div className="font-sans font-bold text-lg dark:text-neutral-200 mb-2 mt-2">
+              {title}
+            </div>
+          </header>
 
           {/* {id === 2 && <GlobeDemo />} */}
           {/* {MemoizedGlobeDemo} */}
@@ -190,6 +240,6 @@ export const BentoGridItem = ({
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
