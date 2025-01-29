@@ -13,7 +13,7 @@ const Experience = () => {
           <Button
             key={card.id}
             borderRadius="1.75rem"
-            className="flex-1 text-white border-neutral dark:border-slate-800"
+            className="flex-1 text-white border-neutral dark:border-slate-800 px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4"
             duration={Math.floor(Math.random() * 10000) + 10000}
           >
             <div>
